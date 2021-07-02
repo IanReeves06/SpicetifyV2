@@ -48,30 +48,47 @@ func main() {
 
 	// win.ShowAndRun()
 
+	var container1 *fyne.Container
+	var container2 *fyne.Container
+
 	imageApp := app.New()
 	win := imageApp.NewWindow("Theme Select")
+
+	navBar := widget.NewToolbar(
+
+		widget.NewToolbarAction(theme.NavigateBackIcon(), func() { win.SetContent(container2) }),
+		widget.NewToolbarSpacer(),
+
+		widget.NewToolbarAction(theme.NavigateNextIcon(), func() {}))
+	// fileList := widget.NewGroup("directory",
+	// 	widget.NewLabel("Image 1"),
+	// 	widget.NewLabel("Image 2"),
+	// 	widget.NewLabel("Image 3"))
+
+	// navBar4 := widget.NewToolbar()
+	image1 := canvas.NewImageFromFile(bin + "\\Gallery" + "\\Adapta-Nokto.png")
 
 	button1 := widget.NewButton("", func() {
 		fmt.Println("lol")
 	})
 
-	navBar := widget.NewToolbar(
+	image2 := canvas.NewImageFromFile(bin + "\\Gallery" + "\\Arc-Dark.png")
 
-		widget.NewToolbarAction(theme.NavigateBackIcon(), func() {}),
-		widget.NewToolbarSpacer(),
-		widget.NewToolbarAction(theme.NavigateNextIcon(), func() {}))
-	fileList := widget.NewGroup("directory",
-		widget.NewLabel("Image 1"),
-		widget.NewLabel("Image 2"),
-		widget.NewLabel("Image 3"))
-	image := canvas.NewImageFromFile(bin + "\\Gallery" + "\\Adapta-Nokto.png")
+	button2 := widget.NewButton("", func() {
+		fmt.Println("kek")
+	})
 
-	container := fyne.NewContainerWithLayout(
-		layout.NewBorderLayout(navBar, nil, fileList, nil),
-		navBar, fileList, image, button1,
+	container1 = fyne.NewContainerWithLayout(
+		layout.NewBorderLayout(navBar, nil, nil, nil),
+		navBar, image1, button1,
 	)
 
-	win.SetContent(container)
+	container2 = fyne.NewContainerWithLayout(
+		layout.NewBorderLayout(navBar, nil, nil, nil),
+		navBar, image2, button2,
+	)
+
+	win.SetContent(container1)
 	win.Resize(fyne.NewSize(640, 480))
 
 	win.ShowAndRun()
