@@ -77,24 +77,21 @@ func getImageNames() []string {
 func ChangeTheme(i int) {
 
 	name := getImageNames()[i]
-	cmd := []string{}
 	args := strings.Split(name, " - ")
 
-	cmd = append(cmd, "spicetify restore")
+	cmd := "spicetify restore; "
 
 	if args[0] == "Dribbblish" {
 		CopyFile(archive+"\\Themes\\Dribbblish\\dribbblish.js", archive+"\\Extensions\\dribbblish.js", archive+"\\Extensions")
-		cmd = append(cmd, "spicetify config extensions dribbblish.js")
+		cmd += "spicetify config extensions dribbblish.js; "
 	} else {
 		os.Remove(archive + "\\Extensions\\dribbblish.js")
-		cmd = append(cmd, "spicetify config extensions dribbblish.js-")
+		cmd += "spicetify config extensions dribbblish.js-; "
 	}
 
-	cmd = append(cmd, "spicetify config current_theme "+args[0])
-	cmd = append(cmd, "spicetify config color_scheme "+args[1])
-	cmd = append(cmd, "spicetify apply")
+	cmd += "spicetify config current_theme " + args[0] + "; "
+	cmd += "spicetify config color_scheme " + args[1] + "; "
+	cmd += "spicetify apply"
 
-	for _, v := range cmd {
-		RunCommand(v)
-	}
+	RunCommand(cmd)
 }

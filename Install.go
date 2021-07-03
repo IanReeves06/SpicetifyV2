@@ -22,18 +22,14 @@ func CheckInstalled() bool {
 
 func InstallSpicetify() {
 
-	cmd := []string{}
+	cmd := "Add-Type -AssemblyName PresentationFramework; "
+	cmd += "Invoke-WebRequest -UseBasicParsing \"https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1\" | Invoke-Expression; "
+	cmd += "spicetify; "
+	cmd += "spicetify backup apply enable-devtool; "
+	cmd += "spicetify config inject_css 1 replace_colors 1 overwrite_assets 1; "
+	cmd += "spicetify apply"
 
-	cmd = append(cmd, "Add-Type -AssemblyName PresentationFramework")
-	cmd = append(cmd, "Invoke-WebRequest -UseBasicParsing \"https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1\" | Invoke-Expression")
-	cmd = append(cmd, "spicetify")
-	cmd = append(cmd, "spicetify backup apply enable-devtool")
-	cmd = append(cmd, "spicetify config inject_css 1 replace_colors 1 overwrite_assets 1")
-	cmd = append(cmd, "spicetify apply")
-
-	for _, v := range cmd {
-		RunCommand(v)
-	}
+	RunCommand(cmd)
 }
 
 func MoveThemes() {
