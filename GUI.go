@@ -11,10 +11,9 @@ import (
 )
 
 var w fyne.Window
-var page string
 var index int
 
-func StartGUI() {
+func Start() {
 
 	a := app.New()
 	w = a.NewWindow("Theme Select")
@@ -28,24 +27,16 @@ func StartGUI() {
 
 func setContent(i int) {
 	image := canvas.NewImageFromFile(binGallery + getImages()[i])
-	w.SetContent(loadUI(image))
+	w.SetContent(loadUI(image, i))
 	index = i
 }
 
 func getFirst() {
-
-	page = "first"
-	counter := 0
-
-	setContent(counter)
+	setContent(0)
 }
 
 func getSecond() {
-
-	page = "second"
-	counter := 11
-
-	setContent(counter)
+	setContent(10)
 }
 
 func confirmButton() {
@@ -53,13 +44,13 @@ func confirmButton() {
 }
 
 func backButton() {
-	if page == "second" {
+	if index >= 10 {
 		getFirst()
 	}
 }
 
 func forwardButton() {
-	if page == "first" {
+	if index < 10 {
 		getSecond()
 	}
 }
@@ -80,15 +71,15 @@ func loadBar() (*widget.Toolbar, *widget.Toolbar) {
 	return bar, confirm
 }
 
-func loadUI(pic *canvas.Image) fyne.CanvasObject {
+func loadUI(pic *canvas.Image, i int) fyne.CanvasObject {
 
 	bar, confirm := loadBar()
 
 	var entries *widget.Box
 
-	if page == "first" {
+	if i < 10 {
 		entries = loadPageOne()
-	} else if page == "second" {
+	} else if i >= 10 {
 		entries = loadPageTwo()
 	}
 

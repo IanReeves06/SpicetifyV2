@@ -51,7 +51,6 @@ func CreateBinary() {
 	exe := "\\SpicetifyV2.exe"
 
 	os.Mkdir(bin, 0777)
-	// os.Mkdir(dst, 0777)
 
 	CopyDir(src, dst)
 	CopyFile(current+exe, bin+exe, bin)

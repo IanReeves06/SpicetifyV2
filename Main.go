@@ -24,11 +24,7 @@ func main() {
 		MoveThemes()
 		CreateBinary()
 	}
-
-	// fmt.Println(getImages())
-	// fmt.Println("LOL")
-	// fmt.Println(getImageNames())
-	StartGUI()
+	Start()
 }
 
 func RunCommand(command string) {
@@ -87,8 +83,10 @@ func ChangeTheme(i int) {
 	cmd = append(cmd, "spicetify restore")
 
 	if args[0] == "Dribbblish" {
+		CopyFile(archive+"\\Themes\\Dribbblish\\dribbblish.js", archive+"\\Extensions\\dribbblish.js", archive+"\\Extensions")
 		cmd = append(cmd, "spicetify config extensions dribbblish.js")
 	} else {
+		os.Remove(archive + "\\Extensions\\dribbblish.js")
 		cmd = append(cmd, "spicetify config extensions dribbblish.js-")
 	}
 
@@ -96,11 +94,6 @@ func ChangeTheme(i int) {
 	cmd = append(cmd, "spicetify config color_scheme "+args[1])
 	cmd = append(cmd, "spicetify apply")
 
-	// l1 := "spicetify config current_theme" + name
-	// l2 := "spicetify config color_scheme" + name
-	// l3 := "spicetify apply"
-
-	// 	cmd := []string{l1, l2, l3}
 	for _, v := range cmd {
 		RunCommand(v)
 	}
