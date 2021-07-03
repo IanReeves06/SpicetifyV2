@@ -105,7 +105,7 @@ func confirmButton() {
 // 	}
 // }
 
-func loadBars() *widget.Toolbar {
+func loadConfirm() *widget.Toolbar {
 
 	// bar := widget.NewToolbar(
 	// 	widget.NewToolbarAction(theme.NavigateBackIcon(), func() { backButton() }),
@@ -123,7 +123,7 @@ func loadBars() *widget.Toolbar {
 
 func loadUI(pic *canvas.Image) fyne.CanvasObject {
 
-	confirm := loadBars()
+	confirm := loadConfirm()
 
 	// var entries *widget.Box
 
