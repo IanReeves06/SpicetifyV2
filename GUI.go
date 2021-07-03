@@ -21,7 +21,7 @@ func Start() {
 	getFirst()
 
 	a.Settings().SetTheme(theme.DarkTheme())
-	w.Resize(fyne.NewSize(1200, 545))
+	w.Resize(fyne.NewSize(1200, 538))
 	w.ShowAndRun()
 }
 
@@ -89,7 +89,7 @@ func loadUI(pic *canvas.Image, i int) fyne.CanvasObject {
 		entries, bar, confirm)
 
 	ui := container.NewHSplit(list, pic)
-	ui.Offset = 0.15
+	ui.Offset = 0.19
 
 	return ui
 }
