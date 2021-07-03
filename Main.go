@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -39,6 +41,13 @@ func RunCommand(command string) {
 	if err != nil {
 		fmt.Println("Failed to run Command")
 	}
+}
+
+func getFiles(src string) []fs.FileInfo {
+
+	fds, _ := ioutil.ReadDir(src)
+
+	return fds
 }
 
 func ChangeTheme(name string) {

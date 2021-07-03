@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 )
@@ -50,7 +49,7 @@ func CreateBinary() {
 	exe := "\\SpicetifyV2.exe"
 
 	os.Mkdir(bin, 0777)
-	os.Mkdir(dst, 0777)
+	// os.Mkdir(dst, 0777)
 
 	CopyDir(src, dst)
 	CopyFile(current+exe, bin+exe, bin)
@@ -58,15 +57,12 @@ func CreateBinary() {
 
 // CopyDir copies a whole directory recursively and its sub-directories.
 func CopyDir(src, dst string) {
-	var srcinfo os.FileInfo
 
-	srcinfo, _ = os.Stat(src)
+	srcinfo, _ := os.Stat(src)
 
-	_ = os.MkdirAll(dst, srcinfo.Mode())
+	os.MkdirAll(dst, srcinfo.Mode())
 
-	fds, _ := ioutil.ReadDir(src)
-
-	for _, fd := range fds {
+	for _, fd := range getFiles(src) {
 		srcfp := path.Join(src, fd.Name())
 		dstfp := path.Join(dst, fd.Name())
 
@@ -80,14 +76,12 @@ func CopyDir(src, dst string) {
 
 // CopyFile copy a single file from the source to the destination.
 func CopyFile(src, dst, bareDst string) {
-	var srcfd *os.File
-	var dstfd *os.File
 
-	srcfd, _ = os.Open(src)
+	srcfd, _ := os.Open(src)
 	defer srcfd.Close()
 
 	os.MkdirAll(bareDst, os.ModePerm) // Create the bareDst folder if not exist
-	dstfd, _ = os.Create(dst)
+	dstfd, _ := os.Create(dst)
 	defer dstfd.Close()
 
 	io.Copy(dstfd, srcfd)

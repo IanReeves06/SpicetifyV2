@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 
 	"fyne.io/fyne"
@@ -16,56 +15,39 @@ import (
 
 var w fyne.Window
 var image *canvas.Image
+var page string
 
 func StartGUI() {
 
 	a := app.New()
 	w = a.NewWindow("Theme Select")
 
-	image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
-
-	setContent()
+	getFirst()
 
 	a.Settings().SetTheme(theme.DarkTheme())
-	w.Resize(fyne.NewSize(1600, 800))
+	w.Resize(fyne.NewSize(1600, 900))
 	w.ShowAndRun()
 }
-
-// func getFirst() {
-
-// 	page = "first"
-// 	image = canvas.NewImageFromFile(bin + "\\Gallery\\Adapta-Nokto.png")
-
-// 	w.SetContent(loadUI(image))
-// }
 
 func setContent() {
 	w.SetContent(loadUI(image))
 }
 
-// func getSecond() {
+func getFirst() {
 
-// 	page = "second"
-// 	image = canvas.NewImageFromFile(bin + "\\Gallery\\Elementary.png")
+	page = "first"
+	image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
 
-// 	w.SetContent(loadUI(image))
-// }
+	w.SetContent(loadUI(image))
+}
 
-// func getThird() {
+func getSecond() {
 
-// 	page = "third"
-// 	image = canvas.NewImageFromFile(bin + "\\Gallery\\Phosphoria.png")
+	page = "second"
+	image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
 
-// 	w.SetContent(loadUI(image))
-// }
-
-// func getDrib() {
-
-// 	page = "drib"
-// 	image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - base.png")
-
-// 	w.SetContent(loadUI(image))
-// }
+	w.SetContent(loadUI(image))
+}
 
 func confirmButton() {
 
@@ -76,75 +58,55 @@ func confirmButton() {
 
 	fmt.Println(theme)
 
-	getFiles()
+	// getFiles()
 
 	// ChangeTheme(theme)
 
 }
 
-// func backButton() {
-// 	switch page {
-// 	case "first":
-// 		break
-// 	case "second":
-// 		getFirst()
-// 	case "third":
-// 		getSecond()
-// 	case "drib":
-// 		getFirst()
-// 	}
-// }
+func backButton() {
+	if page == "second" {
+		getFirst()
+	}
 
-// func forwardButton() {
-// 	switch page {
-// 	case "first":
-// 		getSecond()
-// 	case "second":
-// 		getThird()
-// 	case "third":
-// 		break
-// 	case "drib":
-// 		break
-// 	}
-// }
+}
 
-func loadConfirm() *widget.Toolbar {
+func forwardButton() {
+	if page == "first" {
+		getSecond()
+	}
+}
 
-	// bar := widget.NewToolbar(
-	// 	widget.NewToolbarAction(theme.NavigateBackIcon(), func() { backButton() }),
-	// 	widget.NewToolbarSpacer(),
-	// 	widget.NewToolbarAction(theme.NavigateNextIcon(), func() { forwardButton() }),
-	// )
+func loadBar() (*widget.Toolbar, *widget.Toolbar) {
+
+	bar := widget.NewToolbar(
+		widget.NewToolbarAction(theme.NavigateBackIcon(), func() { backButton() }),
+		widget.NewToolbarSpacer(),
+		widget.NewToolbarAction(theme.NavigateNextIcon(), func() { forwardButton() }),
+	)
 
 	confirm := widget.NewToolbar(
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(theme.CheckButtonIcon(), func() { confirmButton() }),
 		widget.NewToolbarSpacer(),
 	)
-	return confirm
+	return bar, confirm
 }
 
 func loadUI(pic *canvas.Image) fyne.CanvasObject {
 
-	confirm := loadConfirm()
+	bar, confirm := loadBar()
 
-	// var entries *widget.Box
+	var entries *widget.Box
 
-	entries := loadThemes()
+	if page == "first" {
+		entries = loadPageOne()
+	} else if page == "second" {
+		entries = loadPageTwo()
+	}
 
-	// switch page {
-	// case "first":
-	// 	entries = loadPageOne()
-	// case "second":
-	// 	entries = loadPageTwo()
-	// case "third":
-	// 	entries = loadPageThree()
-	// case "drib":
-	// 	entries = loadPageDrib()
-	// }
-
-	list := fyne.NewContainerWithLayout(layout.NewBorderLayout(nil, confirm, nil, nil),
-		entries, confirm)
+	list := fyne.NewContainerWithLayout(layout.NewBorderLayout(bar, confirm, nil, nil),
+		entries, bar, confirm)
 
 	ui := container.NewHSplit(list, pic)
 	ui.Offset = 0.15
@@ -152,33 +114,7 @@ func loadUI(pic *canvas.Image) fyne.CanvasObject {
 	return ui
 }
 
-// func loadUI(pic *canvas.Image, page string) fyne.CanvasObject {
-
-// 	list := getList(page)
-
-// 	ui := container.NewHSplit(list, pic)
-// 	ui.Offset = 0.15
-
-// 	return ui
-// }
-
-func getFiles() []string {
-
-	names := []string{}
-	src := bin + "\\Gallery"
-
-	fds, _ := ioutil.ReadDir(src)
-
-	for _, fd := range fds {
-
-		names = append(names, fd.Name())
-	}
-	fmt.Println(names)
-
-	return []string{}
-}
-
-func loadThemes() *widget.Box {
+func loadPageOne() *widget.Box {
 
 	b1 := widget.NewButton("Default - Ocean", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
@@ -220,40 +156,58 @@ func loadThemes() *widget.Box {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - samourai.png")
 		setContent()
 	})
-	b11 := widget.NewButton("Dribbblish - white", func() {
+
+	buttons := widget.NewVBox(
+		b1,
+		b2,
+		b3,
+		b4,
+		b5,
+		b6,
+		b7,
+		b8,
+		b9,
+		b10,
+	)
+	return buttons
+}
+
+func loadPageTwo() *widget.Box {
+
+	b1 := widget.NewButton("Dribbblish - white", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
 		setContent()
 	})
-	b12 := widget.NewButton("Onepunch - light", func() {
+	b2 := widget.NewButton("Onepunch - light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - light.png")
 		setContent()
 	})
-	b13 := widget.NewButton("Onepunch - dark", func() {
+	b3 := widget.NewButton("Onepunch - dark", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - dark.png")
 		setContent()
 
 	})
-	b14 := widget.NewButton("Sleek - bib", func() {
+	b4 := widget.NewButton("Sleek - bib", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - bib.png")
 		setContent()
 	})
-	b15 := widget.NewButton("Sleek - deep", func() {
+	b5 := widget.NewButton("Sleek - deep", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deep.png")
 		setContent()
 	})
-	b16 := widget.NewButton("Sleek - deeper", func() {
+	b6 := widget.NewButton("Sleek - deeper", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deeper.png")
 		setContent()
 	})
-	b17 := widget.NewButton("Sleek - psycho", func() {
+	b7 := widget.NewButton("Sleek - psycho", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - psycho.png")
 		setContent()
 	})
-	b18 := widget.NewButton("Ziro - Blue-Light", func() {
+	b8 := widget.NewButton("Ziro - Blue-Light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Light.png")
 		setContent()
 	})
-	b19 := widget.NewButton("Ziro - Blue-Dark", func() {
+	b9 := widget.NewButton("Ziro - Blue-Dark", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Dark.png")
 		setContent()
 	})
@@ -268,16 +222,6 @@ func loadThemes() *widget.Box {
 		b7,
 		b8,
 		b9,
-		b10,
-		b11,
-		b12,
-		b13,
-		b14,
-		b15,
-		b16,
-		b17,
-		b18,
-		b19,
 	)
 	return buttons
 }
