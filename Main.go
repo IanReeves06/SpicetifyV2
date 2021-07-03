@@ -12,8 +12,9 @@ import (
 func init() {
 	current = "."
 	homeDir, _ = os.UserHomeDir()
-	bin = homeDir + "\\Spicetify"
 	archive = homeDir + "\\.spicetify"
+	bin = homeDir + "\\Spicetify"
+	binGallery = bin + "\\Gallery"
 }
 
 func main() {
@@ -24,6 +25,9 @@ func main() {
 		CreateBinary()
 	}
 
+	// fmt.Println(getImages())
+	// fmt.Println("LOL")
+	// fmt.Println(getImageNames())
 	StartGUI()
 }
 
@@ -50,23 +54,54 @@ func getFiles(src string) []fs.FileInfo {
 	return fds
 }
 
-func ChangeTheme(name string) {
+func getImages() []string {
 
-	if strings.Contains(name, "Dribbblish") {
-		// getDrib()
-		fmt.Println("wäre cool")
+	imageFiles := getFiles(binGallery)
+
+	images := []string{}
+
+	for _, v := range imageFiles {
+		images = append(images, "\\"+v.Name())
+	}
+	return images
+}
+
+func getImageNames() []string {
+
+	imageNames := []string{}
+
+	for _, v := range getImages() {
+		noPrefix := strings.ReplaceAll(v, "\\", "")
+		noEnd := strings.Split(noPrefix, ".")[0]
+		imageNames = append(imageNames, noEnd)
+	}
+	return imageNames
+}
+
+func ChangeTheme(i int) {
+
+	name := getImageNames()[i]
+	cmd := []string{}
+	args := strings.Split(name, " - ")
+
+	cmd = append(cmd, "spicetify restore")
+
+	if args[0] == "Dribbblish" {
+		cmd = append(cmd, "spicetify config extensions dribbblish.js")
+	} else {
+		cmd = append(cmd, "spicetify config extensions dribbblish.js-")
 	}
 
-	if strings.Contains(name, " - ") {
-		fmt.Println("yikes")
-	} else {
-		l1 := "spicetify config current_theme" + name
-		l2 := "spicetify config color_scheme" + name
-		l3 := "spicetify apply"
+	cmd = append(cmd, "spicetify config current_theme "+args[0])
+	cmd = append(cmd, "spicetify config color_scheme "+args[1])
+	cmd = append(cmd, "spicetify apply")
 
-		cmd := []string{l1, l2, l3}
-		for _, v := range cmd {
-			RunCommand(v)
-		}
+	// l1 := "spicetify config current_theme" + name
+	// l2 := "spicetify config color_scheme" + name
+	// l3 := "spicetify apply"
+
+	// 	cmd := []string{l1, l2, l3}
+	for _, v := range cmd {
+		RunCommand(v)
 	}
 }

@@ -7,9 +7,10 @@ import (
 )
 
 var current string
-var bin string
 var homeDir string
 var archive string
+var bin string
+var binGallery string
 
 func CheckInstalled() bool {
 
@@ -21,14 +22,15 @@ func CheckInstalled() bool {
 
 func InstallSpicetify() {
 
-	l1 := "Add-Type -AssemblyName PresentationFramework"
-	l2 := "Invoke-WebRequest -UseBasicParsing \"https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1\" | Invoke-Expression"
-	l3 := "spicetify"
-	l4 := "spicetify backup apply enable-devtool"
-	l5 := "spicetify config inject_css 1 replace_colors 1 overwrite_assets 1"
-	l6 := "spicetify apply"
+	cmd := []string{}
 
-	cmd := []string{l1, l2, l3, l4, l5, l6}
+	cmd = append(cmd, "Add-Type -AssemblyName PresentationFramework")
+	cmd = append(cmd, "Invoke-WebRequest -UseBasicParsing \"https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1\" | Invoke-Expression")
+	cmd = append(cmd, "spicetify")
+	cmd = append(cmd, "spicetify backup apply enable-devtool")
+	cmd = append(cmd, "spicetify config inject_css 1 replace_colors 1 overwrite_assets 1")
+	cmd = append(cmd, "spicetify apply")
+
 	for _, v := range cmd {
 		RunCommand(v)
 	}

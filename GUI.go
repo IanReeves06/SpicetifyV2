@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"strings"
-
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/canvas"
@@ -14,8 +11,8 @@ import (
 )
 
 var w fyne.Window
-var image *canvas.Image
 var page string
+var index int
 
 func StartGUI() {
 
@@ -29,46 +26,36 @@ func StartGUI() {
 	w.ShowAndRun()
 }
 
-func setContent() {
+func setContent(i int) {
+	image := canvas.NewImageFromFile(binGallery + getImages()[i])
 	w.SetContent(loadUI(image))
+	index = i
 }
 
 func getFirst() {
 
 	page = "first"
-	image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
+	counter := 0
 
-	w.SetContent(loadUI(image))
+	setContent(counter)
 }
 
 func getSecond() {
 
 	page = "second"
-	image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
+	counter := 11
 
-	w.SetContent(loadUI(image))
+	setContent(counter)
 }
 
 func confirmButton() {
-
-	imageSlice := strings.Split(image.File, "\\")
-	lastSliceIndex := imageSlice[len(imageSlice)-1]
-	themeSlice := strings.Split(lastSliceIndex, ".")
-	theme := themeSlice[0]
-
-	fmt.Println(theme)
-
-	// getFiles()
-
-	// ChangeTheme(theme)
-
+	ChangeTheme(index)
 }
 
 func backButton() {
 	if page == "second" {
 		getFirst()
 	}
-
 }
 
 func forwardButton() {
@@ -116,45 +103,45 @@ func loadUI(pic *canvas.Image) fyne.CanvasObject {
 
 func loadPageOne() *widget.Box {
 
-	b1 := widget.NewButton("Default - Ocean", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
-		setContent()
+	b1 := widget.NewButton(getImageNames()[0], func() {
+		counter := 0
+		setContent(counter)
 	})
-	b2 := widget.NewButton("Dribbblish - base", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - base.png")
-		setContent()
+	b2 := widget.NewButton(getImageNames()[1], func() {
+		counter := 1
+		setContent(counter)
 	})
-	b3 := widget.NewButton("Dribbblish - beach-sunset", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - beach-sunset.png")
-		setContent()
+	b3 := widget.NewButton(getImageNames()[2], func() {
+		counter := 2
+		setContent(counter)
 	})
-	b4 := widget.NewButton("Dribbblish - dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - dark.png")
-		setContent()
+	b4 := widget.NewButton(getImageNames()[3], func() {
+		counter := 3
+		setContent(counter)
 	})
-	b5 := widget.NewButton("Dribbblish - dracula", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - dracula.png")
-		setContent()
+	b5 := widget.NewButton(getImageNames()[4], func() {
+		counter := 4
+		setContent(counter)
 	})
-	b6 := widget.NewButton("Dribbblish - gruvbox", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - gruvbox.png")
-		setContent()
+	b6 := widget.NewButton(getImageNames()[5], func() {
+		counter := 5
+		setContent(counter)
 	})
-	b7 := widget.NewButton("Dribbblish - nord-dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - nord-dark.png")
-		setContent()
+	b7 := widget.NewButton(getImageNames()[6], func() {
+		counter := 6
+		setContent(counter)
 	})
-	b8 := widget.NewButton("Dribbblish - nord-light", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - nord-light.png")
-		setContent()
+	b8 := widget.NewButton(getImageNames()[7], func() {
+		counter := 7
+		setContent(counter)
 	})
-	b9 := widget.NewButton("Dribbblish - purple", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - purple.png")
-		setContent()
+	b9 := widget.NewButton(getImageNames()[8], func() {
+		counter := 8
+		setContent(counter)
 	})
-	b10 := widget.NewButton("Dribbblish - samourai", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - samourai.png")
-		setContent()
+	b10 := widget.NewButton(getImageNames()[9], func() {
+		counter := 9
+		setContent(counter)
 	})
 
 	buttons := widget.NewVBox(
@@ -174,42 +161,42 @@ func loadPageOne() *widget.Box {
 
 func loadPageTwo() *widget.Box {
 
-	b1 := widget.NewButton("Dribbblish - white", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
-		setContent()
+	b1 := widget.NewButton(getImageNames()[10], func() {
+		counter := 10
+		setContent(counter)
 	})
-	b2 := widget.NewButton("Onepunch - light", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - light.png")
-		setContent()
+	b2 := widget.NewButton(getImageNames()[11], func() {
+		counter := 11
+		setContent(counter)
 	})
-	b3 := widget.NewButton("Onepunch - dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - dark.png")
-		setContent()
+	b3 := widget.NewButton(getImageNames()[12], func() {
+		counter := 12
+		setContent(counter)
 
 	})
-	b4 := widget.NewButton("Sleek - bib", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - bib.png")
-		setContent()
+	b4 := widget.NewButton(getImageNames()[13], func() {
+		counter := 13
+		setContent(counter)
 	})
-	b5 := widget.NewButton("Sleek - deep", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deep.png")
-		setContent()
+	b5 := widget.NewButton(getImageNames()[14], func() {
+		counter := 14
+		setContent(counter)
 	})
-	b6 := widget.NewButton("Sleek - deeper", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deeper.png")
-		setContent()
+	b6 := widget.NewButton(getImageNames()[15], func() {
+		counter := 15
+		setContent(counter)
 	})
-	b7 := widget.NewButton("Sleek - psycho", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - psycho.png")
-		setContent()
+	b7 := widget.NewButton(getImageNames()[16], func() {
+		counter := 16
+		setContent(counter)
 	})
-	b8 := widget.NewButton("Ziro - Blue-Light", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Light.png")
-		setContent()
+	b8 := widget.NewButton(getImageNames()[17], func() {
+		counter := 17
+		setContent(counter)
 	})
-	b9 := widget.NewButton("Ziro - Blue-Dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Dark.png")
-		setContent()
+	b9 := widget.NewButton(getImageNames()[18], func() {
+		counter := 18
+		setContent(counter)
 	})
 
 	buttons := widget.NewVBox(
