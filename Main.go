@@ -44,11 +44,8 @@ func RunCommand(command string) {
 func ChangeTheme(name string) {
 
 	if strings.Contains(name, "Dribbblish") {
-		if page == "drib" {
-			fmt.Println("wäre cool")
-		} else {
-			getDrib()
-		}
+		// getDrib()
+		fmt.Println("wäre cool")
 	}
 
 	if strings.Contains(name, " - ") {
