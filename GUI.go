@@ -205,13 +205,14 @@ func loadThemes() *widget.Box {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
 		setContent()
 	})
-	b12 := widget.NewButton("Onepunch - dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - dark.png")
-		setContent()
-	})
-	b13 := widget.NewButton("Onepunch - light", func() {
+	b12 := widget.NewButton("Onepunch - light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - light.png")
 		setContent()
+	})
+	b13 := widget.NewButton("Onepunch - dark", func() {
+		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - dark.png")
+		setContent()
+
 	})
 	b14 := widget.NewButton("Sleek - bib", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - bib.png")
@@ -229,12 +230,12 @@ func loadThemes() *widget.Box {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - psycho.png")
 		setContent()
 	})
-	b18 := widget.NewButton("Ziro - Blue-Dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Dark.png")
+	b18 := widget.NewButton("Ziro - Blue-Light", func() {
+		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Light.png")
 		setContent()
 	})
-	b19 := widget.NewButton("Ziro - Blue-Light", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Light.png")
+	b19 := widget.NewButton("Ziro - Blue-Dark", func() {
+		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Dark.png")
 		setContent()
 	})
 
