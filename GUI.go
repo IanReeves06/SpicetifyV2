@@ -163,79 +163,79 @@ func loadThemes() *widget.Box {
 
 	b1 := widget.NewButton("Default - Ocean", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Default - Ocean.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b2 := widget.NewButton("Dribbblish - base", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - base.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b3 := widget.NewButton("Dribbblish - beach-sunset", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - beach-sunset.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b4 := widget.NewButton("Dribbblish - dark", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - dark.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b5 := widget.NewButton("Dribbblish - dracula", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - dracula.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b6 := widget.NewButton("Dribbblish - gruvbox", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - gruvbox.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b7 := widget.NewButton("Dribbblish - nord-dark", func() {
-		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - nord-dark.jpg")
-		w.SetContent(loadUI(image))
+		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - nord-dark.png")
+		setContent()
 	})
 	b8 := widget.NewButton("Dribbblish - nord-light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - nord-light.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b9 := widget.NewButton("Dribbblish - purple", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - purple.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b10 := widget.NewButton("Dribbblish - samourai", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - samourai.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b11 := widget.NewButton("Dribbblish - white", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Dribbblish - white.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b12 := widget.NewButton("Onepunch - dark", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - dark.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b13 := widget.NewButton("Onepunch - light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Onepunch - light.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b14 := widget.NewButton("Sleek - bib", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - bib.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b15 := widget.NewButton("Sleek - deep", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deep.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b16 := widget.NewButton("Sleek - deeper", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - deeper.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b17 := widget.NewButton("Sleek - psycho", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Sleek - psycho.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b18 := widget.NewButton("Ziro - Blue-Dark", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Dark.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 	b19 := widget.NewButton("Ziro - Blue-Light", func() {
 		image = canvas.NewImageFromFile(bin + "\\Gallery\\Ziro - Blue-Light.png")
-		w.SetContent(loadUI(image))
+		setContent()
 	})
 
 	buttons := widget.NewVBox(
