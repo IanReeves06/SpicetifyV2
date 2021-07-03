@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 
 	"fyne.io/fyne"
@@ -75,7 +76,9 @@ func confirmButton() {
 
 	fmt.Println(theme)
 
-	ChangeTheme(theme)
+	getFiles()
+
+	// ChangeTheme(theme)
 
 }
 
@@ -158,6 +161,22 @@ func loadUI(pic *canvas.Image) fyne.CanvasObject {
 
 // 	return ui
 // }
+
+func getFiles() []string {
+
+	names := []string{}
+	src := bin + "\\Gallery"
+
+	fds, _ := ioutil.ReadDir(src)
+
+	for _, fd := range fds {
+
+		names = append(names, fd.Name())
+	}
+	fmt.Println(names)
+
+	return []string{}
+}
 
 func loadThemes() *widget.Box {
 

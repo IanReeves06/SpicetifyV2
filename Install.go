@@ -58,14 +58,13 @@ func CreateBinary() {
 
 // CopyDir copies a whole directory recursively and its sub-directories.
 func CopyDir(src, dst string) {
-	var fds []os.FileInfo
 	var srcinfo os.FileInfo
 
 	srcinfo, _ = os.Stat(src)
 
 	_ = os.MkdirAll(dst, srcinfo.Mode())
 
-	fds, _ = ioutil.ReadDir(src)
+	fds, _ := ioutil.ReadDir(src)
 
 	for _, fd := range fds {
 		srcfp := path.Join(src, fd.Name())
