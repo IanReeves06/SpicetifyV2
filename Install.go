@@ -22,10 +22,14 @@ func CheckInstalled() bool {
 func InstallSpicetify() {
 
 	desktop := homeDir + "\\Desktop"
+	binBin := current + "\\bin\\.spicetify"
+	binCli := current + "\\bin\\spicetify-cli"
 	exe := "\\SpicetifyV2.exe"
 
-	CopyDir(current+"\\bin\\.spicetify", bin)
-	CopyDir(current+"\\bin\\spicetify-cli", homeDir+"\\spicetify-cli")
+	CopyFile(current+exe, binBin+exe, binBin)
+
+	CopyDir(binBin, bin)
+	CopyDir(binCli, homeDir+"\\spicetify-cli")
 
 	CopyFile(bin+exe, desktop+exe, desktop)
 }
