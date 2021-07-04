@@ -8,13 +8,12 @@ import (
 
 var current string
 var homeDir string
-var archive string
 var bin string
-var binGallery string
+var gallery string
 
 func CheckInstalled() bool {
 
-	if _, err := os.Stat(archive); err == nil {
+	if _, err := os.Stat(bin); err == nil {
 		return true
 	}
 	return false
@@ -22,34 +21,13 @@ func CheckInstalled() bool {
 
 func InstallSpicetify() {
 
-	cmd := "Add-Type -AssemblyName PresentationFramework; "
-	cmd += "Invoke-WebRequest -UseBasicParsing \"https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.ps1\" | Invoke-Expression; "
-	cmd += "spicetify; "
-	cmd += "spicetify backup apply enable-devtool; "
-	cmd += "spicetify config inject_css 1 replace_colors 1 overwrite_assets 1; "
-	cmd += "spicetify apply"
-
-	RunCommand(cmd)
-}
-
-func MoveThemes() {
-
-	src := current + "\\Themes"
-	dst := archive + "\\Themes"
-
-	CopyDir(src, dst)
-}
-
-func CreateBinary() {
-
-	src := current + "\\Gallery"
-	dst := bin + "\\Gallery"
+	desktop := homeDir + "\\Desktop"
 	exe := "\\SpicetifyV2.exe"
 
-	os.Mkdir(bin, 0777)
+	CopyDir(current+"\\bin\\.spicetify", bin)
+	CopyDir(current+"\\bin\\spicetify-cli", homeDir+"\\spicetify-cli")
 
-	CopyDir(src, dst)
-	CopyFile(current+exe, bin+exe, bin)
+	CopyFile(bin+exe, desktop+exe, desktop)
 }
 
 // CopyDir copies a whole directory recursively and its sub-directories.

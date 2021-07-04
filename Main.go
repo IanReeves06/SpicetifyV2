@@ -7,22 +7,21 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"gopkg.in/ini.v1"
 )
 
 func init() {
 	current = "."
 	homeDir, _ = os.UserHomeDir()
-	archive = homeDir + "\\.spicetify"
-	bin = homeDir + "\\Spicetify"
-	binGallery = bin + "\\Gallery"
+	bin = homeDir + "\\.spicetify"
+	gallery = bin + "\\Gallery"
 }
 
 func main() {
 
 	if !CheckInstalled() {
 		InstallSpicetify()
-		MoveThemes()
-		CreateBinary()
 	}
 	Start()
 }
@@ -52,7 +51,7 @@ func getFiles(src string) []fs.FileInfo {
 
 func getImages() []string {
 
-	imageFiles := getFiles(binGallery)
+	imageFiles := getFiles(gallery)
 
 	images := []string{}
 
@@ -79,19 +78,22 @@ func ChangeTheme(i int) {
 	name := getImageNames()[i]
 	args := strings.Split(name, " - ")
 
-	cmd := "spicetify restore; "
+	path := bin + "\\config-xpui.ini"
+	cfg, _ := ini.Load(path)
+
+	cfg.Section("Setting").Key("current_theme").SetValue(args[0])
+	cfg.Section("Setting").Key("color_scheme").SetValue(args[1])
 
 	if args[0] == "Dribbblish" {
-		CopyFile(archive+"\\Themes\\Dribbblish\\dribbblish.js", archive+"\\Extensions\\dribbblish.js", archive+"\\Extensions")
-		cmd += "spicetify config extensions dribbblish.js; "
+		CopyFile(bin+"\\Themes\\Dribbblish\\dribbblish.js", bin+"\\Extensions\\dribbblish.js", bin+"\\Extensions")
+		cfg.Section("AdditionalOptions").Key("extensions").SetValue("dribbblish.js")
 	} else {
-		os.Remove(archive + "\\Extensions\\dribbblish.js")
-		cmd += "spicetify config extensions dribbblish.js-; "
+		os.Remove(bin + "\\Extensions\\dribbblish.js")
+		cfg.Section("AdditionalOptions").Key("extensions").SetValue("")
 	}
+	cfg.SaveTo(path)
 
-	cmd += "spicetify config current_theme " + args[0] + "; "
-	cmd += "spicetify config color_scheme " + args[1] + "; "
-	cmd += "spicetify apply"
+	cmd := "spicetify restore; spicetify apply"
 
 	RunCommand(cmd)
 }

@@ -1,0 +1,2 @@
+(("undefined"!=typeof self?self:global).webpackChunkopen=("undefined"!=typeof self?self:global).webpackChunkopen||[]).push([[179],{48892:function(e,t,n){"use strict";n.r(t);var a=n(27378),f=n.n(a);const l=f().memo((()=>f().createElement("section",{"data-testid":"trackv2-page"},"Track Entity Page")));t.default=l}}]);
+//# sourceMappingURL=xpui-routes-track-v2.js.map

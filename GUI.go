@@ -26,7 +26,7 @@ func Start() {
 }
 
 func setContent(i int) {
-	image := canvas.NewImageFromFile(binGallery + getImages()[i])
+	image := canvas.NewImageFromFile(gallery + getImages()[i])
 	image.FillMode = canvas.ImageFillContain
 	w.SetContent(loadUI(image, i))
 	index = i
