@@ -29,7 +29,7 @@ func InstallSpicetify() {
 	CopyDir(binBin, bin)
 	CopyDir(binCli, homeDir+"\\spicetify-cli")
 
-	CopyFile(bin+exe, desktop+exe, desktop)
+	CopyFile(binBin+exe, desktop+exe, desktop)
 }
 
 // CopyDir copies a whole directory recursively and its sub-directories.

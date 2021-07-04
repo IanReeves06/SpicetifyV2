@@ -18,7 +18,7 @@ func Start() {
 	getFirst(w)
 
 	a.Settings().SetTheme(theme.DarkTheme())
-	w.Resize(fyne.NewSize(1200, 538))
+	w.Resize(fyne.NewSize(1200, 535))
 	w.ShowAndRun()
 }
 
