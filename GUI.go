@@ -10,79 +10,75 @@ import (
 	"fyne.io/fyne/widget"
 )
 
-var w fyne.Window
-var index int
-
 func Start() {
 
 	a := app.New()
-	w = a.NewWindow("Theme Select")
+	w := a.NewWindow("Theme Select")
 
-	getFirst()
+	getFirst(w)
 
 	a.Settings().SetTheme(theme.DarkTheme())
 	w.Resize(fyne.NewSize(1200, 538))
 	w.ShowAndRun()
 }
 
-func setContent(i int) {
+func setContent(w fyne.Window, i int) {
 	image := canvas.NewImageFromFile(gallery + getImages()[i])
 	image.FillMode = canvas.ImageFillContain
-	w.SetContent(loadUI(image, i))
-	index = i
+	w.SetContent(loadUI(w, image, i))
 }
 
-func getFirst() {
-	setContent(0)
+func getFirst(w fyne.Window) {
+	setContent(w, 0)
 }
 
-func getSecond() {
-	setContent(10)
+func getSecond(w fyne.Window) {
+	setContent(w, 10)
 }
 
-func confirmButton() {
-	ChangeTheme(index)
+func confirmButton(i int) {
+	ChangeTheme(i)
 }
 
-func backButton() {
-	if index >= 10 {
-		getFirst()
+func backButton(w fyne.Window, i int) {
+	if i >= 10 {
+		getFirst(w)
 	}
 }
 
-func forwardButton() {
-	if index < 10 {
-		getSecond()
+func forwardButton(w fyne.Window, i int) {
+	if i < 10 {
+		getSecond(w)
 	}
 }
 
-func loadBar() (*widget.Toolbar, *widget.Toolbar) {
+func loadBar(w fyne.Window, i int) (*widget.Toolbar, *widget.Toolbar) {
 
 	bar := widget.NewToolbar(
-		widget.NewToolbarAction(theme.NavigateBackIcon(), func() { backButton() }),
+		widget.NewToolbarAction(theme.NavigateBackIcon(), func() { backButton(w, i) }),
 		widget.NewToolbarSpacer(),
-		widget.NewToolbarAction(theme.NavigateNextIcon(), func() { forwardButton() }),
+		widget.NewToolbarAction(theme.NavigateNextIcon(), func() { forwardButton(w, i) }),
 	)
 
 	confirm := widget.NewToolbar(
 		widget.NewToolbarSpacer(),
-		widget.NewToolbarAction(theme.ColorChromaticIcon(), func() { confirmButton() }),
+		widget.NewToolbarAction(theme.ColorChromaticIcon(), func() { confirmButton(i) }),
 		widget.NewToolbarSpacer(),
 	)
 
 	return bar, confirm
 }
 
-func loadUI(pic *canvas.Image, i int) fyne.CanvasObject {
+func loadUI(w fyne.Window, pic *canvas.Image, i int) fyne.CanvasObject {
 
-	bar, confirm := loadBar()
+	bar, confirm := loadBar(w, i)
 
 	var entries *widget.Box
 
 	if i < 10 {
-		entries = loadPageOne()
+		entries = loadPageOne(w)
 	} else if i >= 10 {
-		entries = loadPageTwo()
+		entries = loadPageTwo(w)
 	}
 
 	list := fyne.NewContainerWithLayout(layout.NewBorderLayout(bar, confirm, nil, nil),
@@ -94,47 +90,37 @@ func loadUI(pic *canvas.Image, i int) fyne.CanvasObject {
 	return ui
 }
 
-func loadPageOne() *widget.Box {
+func loadPageOne(w fyne.Window) *widget.Box {
 
 	b1 := widget.NewButton(getImageNames()[0], func() {
-		counter := 0
-		setContent(counter)
+		setContent(w, 0)
 	})
 	b2 := widget.NewButton(getImageNames()[1], func() {
-		counter := 1
-		setContent(counter)
+		setContent(w, 1)
 	})
 	b3 := widget.NewButton(getImageNames()[2], func() {
-		counter := 2
-		setContent(counter)
+		setContent(w, 2)
 	})
 	b4 := widget.NewButton(getImageNames()[3], func() {
-		counter := 3
-		setContent(counter)
+		setContent(w, 3)
 	})
 	b5 := widget.NewButton(getImageNames()[4], func() {
-		counter := 4
-		setContent(counter)
+		setContent(w, 4)
 	})
 	b6 := widget.NewButton(getImageNames()[5], func() {
-		counter := 5
-		setContent(counter)
+		setContent(w, 5)
 	})
 	b7 := widget.NewButton(getImageNames()[6], func() {
-		counter := 6
-		setContent(counter)
+		setContent(w, 6)
 	})
 	b8 := widget.NewButton(getImageNames()[7], func() {
-		counter := 7
-		setContent(counter)
+		setContent(w, 7)
 	})
 	b9 := widget.NewButton(getImageNames()[8], func() {
-		counter := 8
-		setContent(counter)
+		setContent(w, 8)
 	})
 	b10 := widget.NewButton(getImageNames()[9], func() {
-		counter := 9
-		setContent(counter)
+		setContent(w, 9)
 	})
 
 	buttons := widget.NewVBox(
@@ -152,44 +138,35 @@ func loadPageOne() *widget.Box {
 	return buttons
 }
 
-func loadPageTwo() *widget.Box {
+func loadPageTwo(w fyne.Window) *widget.Box {
 
 	b1 := widget.NewButton(getImageNames()[10], func() {
-		counter := 10
-		setContent(counter)
+		setContent(w, 10)
 	})
 	b2 := widget.NewButton(getImageNames()[11], func() {
-		counter := 11
-		setContent(counter)
+		setContent(w, 11)
 	})
 	b3 := widget.NewButton(getImageNames()[12], func() {
-		counter := 12
-		setContent(counter)
+		setContent(w, 12)
 
 	})
 	b4 := widget.NewButton(getImageNames()[13], func() {
-		counter := 13
-		setContent(counter)
+		setContent(w, 13)
 	})
 	b5 := widget.NewButton(getImageNames()[14], func() {
-		counter := 14
-		setContent(counter)
+		setContent(w, 14)
 	})
 	b6 := widget.NewButton(getImageNames()[15], func() {
-		counter := 15
-		setContent(counter)
+		setContent(w, 15)
 	})
 	b7 := widget.NewButton(getImageNames()[16], func() {
-		counter := 16
-		setContent(counter)
+		setContent(w, 16)
 	})
 	b8 := widget.NewButton(getImageNames()[17], func() {
-		counter := 17
-		setContent(counter)
+		setContent(w, 17)
 	})
 	b9 := widget.NewButton(getImageNames()[18], func() {
-		counter := 18
-		setContent(counter)
+		setContent(w, 18)
 	})
 
 	buttons := widget.NewVBox(
