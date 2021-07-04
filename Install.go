@@ -26,8 +26,6 @@ func InstallSpicetify() {
 	binCli := current + "\\bin\\spicetify-cli"
 	exe := "\\SpicetifyV2.exe"
 
-	CopyFile(current+exe, binBin+exe, binBin)
-
 	CopyDir(binBin, bin)
 	CopyDir(binCli, homeDir+"\\spicetify-cli")
 
