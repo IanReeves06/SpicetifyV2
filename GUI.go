@@ -168,6 +168,9 @@ func loadPageTwo(w fyne.Window) *widget.Box {
 	b9 := widget.NewButton(getImageNames()[18], func() {
 		setContent(w, 18)
 	})
+	b10 := widget.NewButton(getImageNames()[19], func() {
+		setContent(w, 19)
+	})
 
 	buttons := widget.NewVBox(
 		b1,
@@ -179,6 +182,7 @@ func loadPageTwo(w fyne.Window) *widget.Box {
 		b7,
 		b8,
 		b9,
+		b10,
 	)
 	return buttons
 }
